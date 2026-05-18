@@ -41,36 +41,30 @@ gh repo create my-team/support-triage --template direkt/pylon-template
 cd support-triage
 ```
 
-### 2. Install the Pylon MCP server
-
-This template uses the standalone [`pylon-mcp`](https://github.com/direkt/pylon-mcp) server. Follow its README to install. The shortest path is usually:
+### 2. Run the setup UI (recommended)
 
 ```bash
-npm install -g pylon-mcp-server
+node setup.mjs
 ```
 
-After install, `pylon-mcp-cli` should be on your PATH. Verify:
+Opens a local web UI at http://localhost:7077 that walks you through everything:
 
-```bash
-which pylon-mcp-cli
-```
+- Paste your Pylon API token (writes `.env`)
+- Verifies that `pylon-mcp-cli` is installed on your PATH
+- Test-fetches a real Pylon case to confirm wiring
+- Shows which `product/` subfolders still need content
 
-### 3. Set your Pylon API token
+Requires Node 18+ (uses built-in `fetch` and `node:` imports). Zero `npm install`.
 
-```bash
-cp .env.example .env
-# Edit .env and paste your token from https://app.usepylon.com/settings/api-keys
-```
+Prefer to set things up by hand? Skip to **Manual setup** below.
 
-Make sure your shell exports `PYLON_API_TOKEN` when you launch Claude Code (e.g., add it to your `.envrc` or source `.env`).
-
-### 4. Drop in your product knowledge
+### 3. Drop in your product knowledge
 
 - **Docs**: put markdown files under `product/docs/`. Claude will `Grep` and `Read` them during investigation.
 - **Code**: clone or submodule your codebase under `product/code/`. The `.gitignore` excludes this folder by default so you don't accidentally commit a giant tree back to the template.
 - **Notes**: anything else useful — runbooks, common-issue cheatsheets, deployment quirks — under `product/notes/`.
 
-### 5. Customize for your product
+### 4. Customize for your product
 
 Skim these files and replace the `YOUR_PRODUCT` / `AcmeCloud` placeholders with your actual product name, SDK list, doc URLs, etc.:
 
@@ -79,7 +73,7 @@ Skim these files and replace the `YOUR_PRODUCT` / `AcmeCloud` placeholders with 
 - `.claude/rules/08-sdk-detection.md` (your SDK list, if you ship multiple)
 - `.claude/agents/support-responder.md` (greeting voice, sign-off conventions)
 
-### 6. Try it
+### 5. Try it
 
 ```bash
 claude
@@ -98,6 +92,17 @@ The auto-fetch rule will pull the case + attachments, dispatch the triage and (w
 - `<references>` — sources opened
 - `<customer_draft>` — the customer-safe reply
 - `<slack_message>` — paste-ready Slack version (same content)
+
+---
+
+## Manual setup
+
+If you'd rather not run the UI:
+
+1. Install [`pylon-mcp`](https://github.com/direkt/pylon-mcp) and confirm `pylon-mcp-cli` is on your PATH.
+2. `cp .env.example .env` and paste your token from https://app.usepylon.com/settings/api-keys
+3. Make sure your shell exports `PYLON_API_TOKEN` when launching Claude Code (e.g., `source .env`).
+4. Populate `product/{docs,code,notes}/` as described above.
 
 ---
 
