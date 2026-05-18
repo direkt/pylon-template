@@ -1,0 +1,12 @@
+{
+  "_comment": "Wires the Pylon MCP server into Claude Code for this project. Install pylon-mcp separately per its repo's instructions (https://github.com/direkt/pylon-mcp) — this file just tells Claude Code where to find it. The PYLON_API_TOKEN is read from your .env (or your shell).",
+  "mcpServers": {
+    "pylon": {
+      "command": "pylon-mcp-cli",
+      "args": [],
+      "env": {
+        "PYLON_API_TOKEN": "${PYLON_API_TOKEN}"
+      }
+    }
+  }
+}

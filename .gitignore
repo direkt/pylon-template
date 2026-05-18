@@ -1,0 +1,33 @@
+# Secrets
+.env
+.env.local
+*.pem
+*.key
+
+# Claude Code project state
+.claude/projects/
+.claude/scheduled_tasks.lock
+
+# User's product code (drop your codebase here; don't commit it back to this template)
+product/code/*
+!product/code/README.md
+!product/code/.gitkeep
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+
+# Node (in case you add tooling later)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python (if you add scripts)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
